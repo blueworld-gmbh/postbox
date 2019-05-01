@@ -16,6 +16,8 @@ Goodbye, merge conflicts!</p>
 
 The usage is very simple. We need a path to the Postman collection JSON file and a directory to write our splitted up files into.
 
+**ℹ️Info:** No worries, the order of the Postman collection items is retained!
+
 ### Split up the Postman collection JSON
 
 `postbox-split path/to/postman_collection.json ./outdir`
