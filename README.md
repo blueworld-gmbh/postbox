@@ -3,7 +3,7 @@
 <p align="center">This helps with large collections under source control.
 Goodbye, merge conflicts!</p>
 <p align="center">
-	<a href="https://badge.fury.io/js/%40blueworld%2Fdictionarray">
+	<a href="https://badge.fury.io/js/%40blueworld%2Fpostbox">
 		<img src="https://badge.fury.io/js/%40blueworld%2Fpostbox.svg" alt="npm version" height="18">
 	</a>
 </p>
