@@ -1,5 +1,7 @@
 #!/usr/bin/env node
+
 import fs from "fs";
+
 import FileItem from "./interfaces/FileItem";
 import Info from "./interfaces/Info";
 

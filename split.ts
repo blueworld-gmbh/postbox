@@ -1,8 +1,10 @@
 #!/usr/bin/env node
+
 import fs from "fs";
 import slug from "slug";
 
 import Item from "./interfaces/Item";
+import FileItem from "./interfaces/FileItem";
 
 const file: string = process.argv[2];
 const outDir: string = process.argv[3];
@@ -40,7 +42,7 @@ for (let i: number = 0; i < col.item.length; i++) {
 
 	console.log("Splitted:", fileName);
 
-	const content = {
+	const content: FileItem = {
 		index: i,
 		item: item
 	};
