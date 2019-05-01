@@ -8,7 +8,8 @@ const file = process.argv[2];
 const outDir = process.argv[3];
 
 if (process.argv.length !== 4) {
-	console.error("Please specify all command line arguments");
+	console.error("Please specify all command line arguments:");
+	console.error("postbox-split path/to/postman_collection.json ./outdir");
 	process.exit(1);
 }
 
@@ -28,4 +29,4 @@ col.item.forEach((item: Item, idx: number) => {
 });
 
 // write info portion of the collection
-fs.writeFileSync(`${outDir}/info.json`, JSON.stringify(col.info, null, 4));
+fs.writeFileSync(`${outDir}/__info.json`, JSON.stringify(col.info, null, 4));

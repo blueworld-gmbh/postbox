@@ -7,7 +7,8 @@ const inDir = process.argv[2];
 const outFile = process.argv[3];
 
 if (process.argv.length !== 4) {
-	console.error("Please specify all command line arguments");
+	console.error("Please specify all command line arguments:");
+	console.error("postbox-merge ./outdir path/to/postman_collection.json");
 	process.exit(1);
 }
 
@@ -28,7 +29,7 @@ items.sort(
 );
 
 // read info portion of the collection
-const info: Info = JSON.parse(fs.readFileSync(`${inDir}/info.json`).toString());
+const info: Info = JSON.parse(fs.readFileSync(`${inDir}/__info.json`).toString());
 
 // reassemble postman collection file
 const postmanCol = {

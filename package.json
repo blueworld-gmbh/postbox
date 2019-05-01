@@ -1,6 +1,6 @@
 {
 	"name": "@blueworld/postbox",
-	"version": "1.0.0",
+	"version": "1.0.5",
 	"description": "A tool to split up a Postman collection into files. One file per request.",
 	"bin": {
 		"postbox-split": "./build/split.js",
@@ -9,7 +9,8 @@
 	"scripts": {
 		"build": "tsc",
 		"split": "ts-node split.ts",
-		"merge": "ts-node merge.ts"
+		"merge": "ts-node merge.ts",
+		"prepublish": "npm run build"
 	},
 	"repository": {
 		"type": "git",
