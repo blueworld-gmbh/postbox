@@ -4,8 +4,8 @@ import slug from "slug";
 
 import Item from "./interfaces/Item";
 
-const file = process.argv[2]; //"TraceMate-REST-API.postman_collection.json";
-const outDir = process.argv[3]; //"./out";
+const file = process.argv[2];
+const outDir = process.argv[3];
 
 if (process.argv.length !== 4) {
 	console.error("Please specify all command line arguments");
