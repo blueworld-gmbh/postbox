@@ -3,8 +3,8 @@ import fs from "fs";
 import FileItem from "./interfaces/FileItem";
 import Info from "./interfaces/Info";
 
-const inDir = process.argv[2];
-const outFile = process.argv[3];
+const inDir: string = process.argv[2];
+const outFile: string = process.argv[3];
 
 if (process.argv.length !== 4) {
 	console.error("Please specify all command line arguments:");
@@ -16,10 +16,15 @@ const files: string[] = fs.readdirSync(inDir);
 var items: FileItem[] = [];
 
 // read all files into main memory
-files.forEach((file: string) => {
-	const fileItem: FileItem = JSON.parse(fs.readFileSync(`${inDir}/${file}`).toString());
-	items.push(fileItem);
-});
+files
+	.filter((file: string) => {
+		// remove all interal files
+		return !file.startsWith("__");
+	})
+	.forEach((file: string) => {
+		const fileItem: FileItem = JSON.parse(fs.readFileSync(`${inDir}/${file}`).toString());
+		items.push(fileItem);
+	});
 
 // sort file items by index ascending
 items.sort(

@@ -4,8 +4,8 @@ import slug from "slug";
 
 import Item from "./interfaces/Item";
 
-const file = process.argv[2];
-const outDir = process.argv[3];
+const file: string = process.argv[2];
+const outDir: string = process.argv[3];
 
 if (process.argv.length !== 4) {
 	console.error("Please specify all command line arguments:");
@@ -14,19 +14,39 @@ if (process.argv.length !== 4) {
 }
 
 // read file to memory
-const col = JSON.parse(fs.readFileSync(file).toString());
+var col;
+try {
+	col = JSON.parse(fs.readFileSync(file).toString());
+} catch (e) {
+	console.info(e);
+	process.exit(0);
+}
 
-col.item.forEach((item: Item, idx: number) => {
-	const fileName = `${slug(item.name).toLowerCase()}.json`;
-	console.log("Splitted", fileName);
+var visitedNames: { [id: string]: number } = {};
 
-	let content = {
-		index: idx,
+for (let i: number = 0; i < col.item.length; i++) {
+	const item: Item = col.item[i];
+
+	let fileName = `${slug(item.name).toLowerCase()}`;
+
+	// if duplicate, count up
+	if (fileName in visitedNames) {
+		fileName += `-${visitedNames[fileName]}`;
+	} else {
+		visitedNames[fileName] = 1;
+	}
+
+	visitedNames[fileName]++;
+
+	console.log("Splitted:", fileName);
+
+	const content = {
+		index: i,
 		item: item
 	};
 
-	fs.writeFileSync(`${outDir}/${fileName}`, JSON.stringify(content, null, 4));
-});
+	fs.writeFileSync(`${outDir}/${fileName}.json`, JSON.stringify(content, null, 4));
+}
 
 // write info portion of the collection
 fs.writeFileSync(`${outDir}/__info.json`, JSON.stringify(col.info, null, 4));
