@@ -1,0 +1,34 @@
+{
+	"name": "postbox",
+	"version": "1.0.0",
+	"description": "A tool to split up a Postman collection into files. One file per request.",
+	"bin": {
+		"postbox-split": "./build/split.js",
+		"postbox-merge": "./build/merge.js"
+	},
+	"scripts": {
+		"build": "tsc",
+		"split": "ts-node split.ts",
+		"merge": "ts-node merge.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "http://bitbucket.blue.blueworld-gmbh.de:7990/scm/~brueggemann/postbox.git"
+	},
+	"author": "blueworld GmbH",
+	"license": "GPL-3.0-or-later",
+	"dependencies": {
+		"slug": "^1.1.0"
+	},
+	"devDependencies": {
+		"@types/node": "^11.13.8",
+		"ts-node": "^8.1.0",
+		"typescript": "^3.4.5"
+	},
+	"prettier": {
+		"printWidth": 100,
+		"useTabs": true,
+		"tabWidth": 4,
+		"arrowParens": "always"
+	}
+}
