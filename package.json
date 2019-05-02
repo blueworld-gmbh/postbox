@@ -1,6 +1,6 @@
 {
 	"name": "@blueworld/postbox",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "A tool to split up a Postman collection into files. One file per request.",
 	"bin": {
 		"postbox-split": "./build/split.js",
@@ -14,7 +14,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "http://bitbucket.blue.blueworld-gmbh.de:7990/scm/~brueggemann/postbox.git"
+		"url": "https://github.com/blueworld-gmbh/postbox.git"
 	},
 	"author": "blueworld GmbH",
 	"license": "GPL-3.0-or-later",
