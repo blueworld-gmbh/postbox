@@ -25,10 +25,9 @@ try {
 }
 
 var visitedNames: { [id: string]: number } = {};
+var lastFileName = null;
 
-for (let i: number = 0; i < col.item.length; i++) {
-	const item: Item = col.item[i];
-
+for (let item of <Item[]>col.item) {
 	let fileName = `${slug(item.name).toLowerCase()}`;
 
 	// if duplicate, count up
@@ -42,12 +41,14 @@ for (let i: number = 0; i < col.item.length; i++) {
 
 	console.log("Splitted:", fileName);
 
+	// store the item and its predecessor
 	const content: FileItem = {
-		index: i,
+		predecessor: lastFileName,
 		item: item
 	};
 
 	fs.writeFileSync(`${outDir}/${fileName}.json`, JSON.stringify(content, null, 4));
+	lastFileName = fileName;
 }
 
 // write info portion of the collection

@@ -1,6 +1,6 @@
 import Item from "./Item";
 
 export default interface FileItem {
-	index: number;
+	predecessor: string;
 	item: Item;
 }
