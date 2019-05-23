@@ -4,7 +4,7 @@ import fs from "fs";
 
 import FileItem from "./interfaces/FileItem";
 import Info from "./interfaces/Info";
-import Item from "./interfaces/Item";
+import { influcePostmanJsonFile } from "./helper";
 
 const inDir: string = process.argv[2];
 const outFile: string = process.argv[3];
@@ -12,7 +12,7 @@ const outFile: string = process.argv[3];
 class ExtendedFileItem implements FileItem {
 	public name: string;
 	public predecessor: string;
-	public item: Item;
+	public item: any;
 
 	public constructor(fileItem: FileItem) {
 		this.predecessor = fileItem.predecessor;
@@ -33,7 +33,7 @@ var items: ExtendedFileItem[] = [];
 files
 	.filter((file: string) => {
 		// remove interal files, those start with two underscores
-		return !file.startsWith("__") && !file.startsWith(".");
+		return influcePostmanJsonFile(file);
 	})
 	.forEach((file: string) => {
 		// read the file content
@@ -43,6 +43,7 @@ files
 
 		// store the filename
 		item.name = file.replace(".json", "");
+		console.log("Merged:", item.name);
 
 		items.push(item);
 	});

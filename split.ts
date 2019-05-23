@@ -3,8 +3,8 @@
 import fs from "fs";
 import slug from "slug";
 
-import Item from "./interfaces/Item";
 import FileItem from "./interfaces/FileItem";
+import { influcePostmanJsonFile } from "./helper";
 
 const file: string = process.argv[2];
 const outDir: string = process.argv[3];
@@ -27,8 +27,19 @@ try {
 var visitedNames: { [id: string]: number } = {};
 var lastFileName = null;
 
-for (let item of <Item[]>col.item) {
-	let fileName = `${slug(item.name).toLowerCase()}`;
+// read and memorize all files from the output directory
+var existingJsonFilesInOutDir: string[] = fs
+	.readdirSync(outDir)
+	.filter((file) => {
+		return influcePostmanJsonFile(file);
+	})
+	.map((file) => {
+		return file.split(".")[0];
+	});
+
+// iterate all items in collection
+for (let item of col.item) {
+	let fileName = `${slug(item["name"]).toLowerCase()}`;
 
 	// if duplicate, count up
 	if (fileName in visitedNames) {
@@ -49,7 +60,20 @@ for (let item of <Item[]>col.item) {
 
 	fs.writeFileSync(`${outDir}/${fileName}.json`, JSON.stringify(content, null, 4));
 	lastFileName = fileName;
+
+	// remove this filename from the array of existing json files within the out directory
+	// in the end this leaves the files that should be deleted by the split operation
+	const index = existingJsonFilesInOutDir.indexOf(fileName);
+	if (index !== -1) {
+		existingJsonFilesInOutDir.splice(index, 1);
+	}
 }
 
 // write info portion of the collection
 fs.writeFileSync(`${outDir}/__info.json`, JSON.stringify(col.info, null, 4));
+
+// remove all files that are still left within the out dir and were not part of this split
+existingJsonFilesInOutDir.forEach((fileName) => {
+	console.log("Deleted:", fileName);
+	fs.unlinkSync(`${outDir}/${fileName}.json`);
+});
